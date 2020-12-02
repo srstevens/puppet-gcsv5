@@ -60,7 +60,7 @@ class gcsv5::config {
             cwd     => '/root/globus_conf',
             path    => '/bin:/usr/bin:/sbin:/usr/sbin',
             unless  => "if [[ `/usr/bin/ps -eaf|/usr/bin/grep gridftp|/usr/bin/grep -v grep |/usr/bin/wc -l` -gt 0 ]]; then exit 0; else exit 1;fi;",
-            provder => 'shell'
+            provider => 'shell'
         }
     }
 
