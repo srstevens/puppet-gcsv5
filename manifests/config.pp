@@ -56,7 +56,7 @@ class gcsv5::config {
         }
     } else {
         exec {'gcsv5_node_setup':
-            command => "${gcsv5::gcs_cmd} node setup --client-id $(cat ./client_id) --secret $(cat ./secret) --ip-address ${gcsv5::ip_addr}",
+            command => "${gcsv5::gcs_cmd} node setup --client-id $(cat ./client_id) --secret $(cat ./secret) --ip-address ${gcsv5::ip_addr} --export-node ./node_info_new.json",
             cwd     => '/root/globus_conf',
             path    => '/bin:/usr/bin:/sbin:/usr/sbin',
             unless  => "if [[ `/usr/bin/ps -eaf|/usr/bin/grep gridftp|/usr/bin/grep -v grep |/usr/bin/wc -l` -gt 0 ]]; then exit 0; else exit 1;fi;",
