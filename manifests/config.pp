@@ -69,13 +69,13 @@ class gcsv5::config {
         enable => true,
     }
 
-###    file_line { 'gcs_loglevel':
-###        ensure => present,
-###        path   => '/etc/gridftp.d/globus-connect-server',
-###        line   => 'log_level ERROR,WARN,TRANSFER',
-###        match  => '^log_level ERROR,WARN$',
-###        notify => Service['globus-gridftp-server'],
-###    }
+    file_line { 'gcs_loglevel':
+        ensure => present,
+        path   => '/etc/gridftp.d/globus-connect-server',
+        line   => 'log_level ERROR,WARN,TRANSFER',
+        match  => '^log_level ERROR,WARN$',
+        notify => Service['globus-gridftp-server'],
+    }
 
     service { 'httpd':
         ensure => 'running',
