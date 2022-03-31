@@ -1,0 +1,9 @@
+---
+::gcsv5::repo::yumrepo:
+  globus-connect-server-5:
+    baseurl: $gcsv5::repo_baseurl_v5
+    descr: 'Globus-Connect-Server-5'
+    enabled: 1
+    failovermethod: priority
+    gpgcheck: 1
+    gpgkey: 'https://downloads.globus.org/toolkit/globus-connect-server/RPM-GPG-KEY-Globus'
