@@ -48,18 +48,18 @@ class gcsv5::config {
         }
 
         exec {'gcsv5_node_setup_import':
-            command => "LC_ALL=en_US.utf8 ${gcsv5::gcs_cmd} node setup --client-id $(cat ./client_id) --secret $(cat ./secret) --import-node ./node_info.json --ip-address ${gcsv5::ip_addr}",
-            cwd     => '/root/globus_conf',
-            path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-            unless  => "if [[ `/usr/bin/ps -eaf|/usr/bin/grep gridftp|/usr/bin/grep -v grep |/usr/bin/wc -l` -gt 0 ]]; then exit 0; else exit 1;fi;",
+            command  => "LC_ALL=en_US.utf8 ${gcsv5::gcs_cmd} node setup --client-id $(cat ./client_id) --secret $(cat ./secret) --import-node ./node_info.json --ip-address ${gcsv5::ip_addr}",
+            cwd      => '/root/globus_conf',
+            path     => '/bin:/usr/bin:/sbin:/usr/sbin',
+            unless   => "if [[ `/usr/bin/ps -eaf|/usr/bin/grep gridftp|/usr/bin/grep -v grep |/usr/bin/wc -l` -gt 0 ]]; then exit 0; else exit 1;fi;",
             provider => 'shell'
         }
     } else {
         exec {'gcsv5_node_setup':
-            command => "${gcsv5::gcs_cmd} node setup --client-id $(cat ./client_id) --secret $(cat ./secret) --ip-address ${gcsv5::ip_addr} --export-node ./node_info_new.json",
-            cwd     => '/root/globus_conf',
-            path    => '/bin:/usr/bin:/sbin:/usr/sbin',
-            unless  => "if [[ `/usr/bin/ps -eaf|/usr/bin/grep gridftp|/usr/bin/grep -v grep |/usr/bin/wc -l` -gt 0 ]]; then exit 0; else exit 1;fi;",
+            command  => "${gcsv5::gcs_cmd} node setup --client-id $(cat ./client_id) --secret $(cat ./secret) --ip-address ${gcsv5::ip_addr} --export-node ./node_info_new.json",
+            cwd      => '/root/globus_conf',
+            path     => '/bin:/usr/bin:/sbin:/usr/sbin',
+            unless   => "if [[ `/usr/bin/ps -eaf|/usr/bin/grep gridftp|/usr/bin/grep -v grep |/usr/bin/wc -l` -gt 0 ]]; then exit 0; else exit 1;fi;",
             provider => 'shell'
         }
     }
@@ -91,27 +91,27 @@ class gcsv5::config {
         source => 'puppet:///modules/gcsv5/000-security.conf',
     }
 
-   file { '/etc/httpd/conf.d/ssl.conf':
-       ensure => present,
-       group  => root,
-       mode   => '0644',
-       notify => Service['httpd'],
-       owner  => root,
-       source => 'puppet:///modules/gcsv5/ssl.conf',
-   }
+    file { '/etc/httpd/conf.d/ssl.conf':
+        ensure => present,
+        group  => root,
+        mode   => '0644',
+        notify => Service['httpd'],
+        owner  => root,
+        source => 'puppet:///modules/gcsv5/ssl.conf',
+    }
 
-   file { '/etc/httpd/conf.d/welcome.conf':
-       ensure => absent,
-       notify => Service['httpd'],
-   }
+    file { '/etc/httpd/conf.d/welcome.conf':
+        ensure => absent,
+        notify => Service['httpd'],
+    }
 
-   file { '/etc/httpd/conf/httpd.conf':
-       ensure => present,
-       group  => root,
-       mode   => '0644',
-       notify => Service['httpd'],
-       owner  => root,
-       source => 'puppet:///modules/gcsv5/httpd.conf',
-   }
+    file { '/etc/httpd/conf/httpd.conf':
+        ensure => present,
+        group  => root,
+        mode   => '0644',
+        notify => Service['httpd'],
+        owner  => root,
+        source => 'puppet:///modules/gcsv5/httpd.conf',
+    }
 
 }

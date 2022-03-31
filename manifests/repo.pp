@@ -14,3 +14,4 @@ class gcsv5::repo (
   }
 
   ensure_resources( 'yumrepo', $yumrepo, $yumrepo_defaults )
+}
