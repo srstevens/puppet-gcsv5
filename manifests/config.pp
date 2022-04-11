@@ -15,7 +15,7 @@ class gcsv5::config() {
     }
 
     exec {'gcsv5_deployment_key':
-        command  =>  "echo ${gcsv5::deployment_key} > ${gcsv5::globus_conf}/deployment-key.json",
+        command  =>  "echo \"${gcsv5::deployment_key}\" > ${gcsv5::globus_conf}/deployment-key.json",
         cwd      =>  "$gcsv5::globus_conf",
         path     =>  '/bin:/usr/bin:/sbin:/usr/sbin',
         provider =>  "shell",
@@ -23,7 +23,7 @@ class gcsv5::config() {
 
     if ( ! empty($gcsv5::node_info) ) {
         exec {'gcsv5_node_info':
-            command  =>  "echo ${gcsv5::node_info} > ${gcsv5::globus_conf}/node_info.json",
+            command  =>  "echo \"${gcsv5::node_info}\" > ${gcsv5::globus_conf}/node_info.json",
             cwd      =>  "$gcsv5::globus_conf",
             path     =>  '/bin:/usr/bin:/sbin:/usr/sbin',
             provider =>  "shell",
