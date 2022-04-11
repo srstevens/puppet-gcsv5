@@ -30,7 +30,7 @@ class gcsv5::config() {
         }
 
         exec {'gcsv5_node_setup_import':
-            command  => "LC_ALL=en_US.utf8 ${gcsv5::gcs_cmd} node setup --client-id ${gcsv5::client_id} --secret ${gcsv5::client_secret} --import-node ./node_info.json --ip-address ${gcsv5::ip_addr} && rm -f ./deploymen-key.json && rm -f ./node_info.json",
+            command  => "LC_ALL=en_US.utf8 ${gcsv5::gcs_cmd} node setup --client-id ${gcsv5::client_id} --secret ${gcsv5::client_secret} --import-node ./node_info.json --ip-address ${gcsv5::ip_addr} && rm -f ./deployment-key.json && rm -f ./node_info.json",
             cwd      => '/root/globus_conf',
             path     => '/bin:/usr/bin:/sbin:/usr/sbin',
             unless   => "if [[ `/usr/bin/ps -eaf|/usr/bin/grep gridftp|/usr/bin/grep -v grep |/usr/bin/wc -l` -gt 0 ]]; then exit 0; else exit 1;fi;",
