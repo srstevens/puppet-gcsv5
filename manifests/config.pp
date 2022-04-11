@@ -96,13 +96,4 @@ class gcsv5::config() {
         source => 'puppet:///modules/gcsv5/httpd.conf',
     }
 
-    file { "$gcsv5::globus_conf/deployment-key.json":
-        ensure => absent,
-    }
-
-    file { "$gcsv5::globus_conf/node_info.json":
-        ensure => absent,
-    }
-
-
 }
