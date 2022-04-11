@@ -22,14 +22,6 @@ class gcsv5::config() {
     }
 
     if ( ! empty($gcsv5::node_info) ) {
-        file { '/root/globus_conf/node_info.json':
-            content => $gcsv5::node_info,
-            ensure  => file,
-            group   => root,
-            mode    => '0600',
-            owner   => root,
-        }
-
         exec {'gcsv5_node_info':
             command  =>  "echo $gcsv5::node_info > $gcsv5::globus_conf/node_info.json",
             cwd      =>  "$gcsv5::globus_conf",
