@@ -4,14 +4,7 @@
 #
 # @example
 #   include gcsv5::config
-class gcsv5::config(
-    Array[string] $files_to_cleanup = [
-        '/root/globus_conf/client_id',
-        '/root/globus_conf/secret',
-        '/root/globus_conf/deployment-key.json',
-        '/root/globus_conf/node_info.json',
-    ],
-) {
+class gcsv5::config() {
 
     #Create files
     file { '/root/globus_conf':
@@ -98,7 +91,5 @@ class gcsv5::config(
         owner  => root,
         source => 'puppet:///modules/gcsv5/httpd.conf',
     }
-
-    cleanup { $files_to_cleanup: }
 
 }
