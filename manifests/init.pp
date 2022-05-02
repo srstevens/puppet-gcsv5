@@ -23,6 +23,8 @@ class gcsv5 (
     String $gcs_cmd = 'globus-connect-server',
     String $ip_addr = '',
     String $globus_conf = '/root/globus_conf',
+    String $globus_info_file = '/var/lib/globus-connect-server/info.json',
+
 
 
 ) {
