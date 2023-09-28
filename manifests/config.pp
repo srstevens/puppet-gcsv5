@@ -6,12 +6,12 @@
 #   include gcsv5::config
 class gcsv5::config() {
 
-    #Create config files and setup node with Globus
-    file { '/root/globus_conf':
-        ensure  => directory,
-        group   => root,
-        mode    => '0600',
-        owner   => root,
+    exec {'globus_conf directory':
+        command  => "mkdir /root/globus_conf",
+        cwd      => "/root",
+        path     => '/bin:/usr/bin:/sbin:/usr/sbin',
+        provider => "shell",
+        unless   => "test -s \'${gcsv5::globus_info_file}\'",
     }
 
     exec {'gcsv5_deployment_key':
@@ -32,7 +32,7 @@ class gcsv5::config() {
         }
 
         exec {'gcsv5_node_setup_import':
-            command  => "LC_ALL=en_US.utf8 ${gcsv5::gcs_cmd} node setup --client-id ${gcsv5::client_id} --secret ${gcsv5::client_secret} --import-node ./node_info.json --ip-address ${gcsv5::ip_addr} && cd /root && rm -rf /root/globus_conf/*",
+            command  => "LC_ALL=en_US.utf8 ${gcsv5::gcs_cmd} node setup --client-id ${gcsv5::client_id} --secret ${gcsv5::client_secret} --import-node ./node_info.json --ip-address ${gcsv5::ip_addr} && cd /root && rm -rf /root/globus_conf",
             cwd      => '/root/globus_conf',
             path     => '/bin:/usr/bin:/sbin:/usr/sbin',
             unless   => [ "if [[ `/usr/bin/ps -eaf|/usr/bin/grep gridftp|/usr/bin/grep -v grep |/usr/bin/wc -l` -gt 0 ]]; then exit 0; else exit 1;fi;", "test -s \'${gcsv5::globus_info_file}\'" ],
