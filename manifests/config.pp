@@ -30,14 +30,14 @@ class gcsv5::config() {
         }
 
         exec {'gcsv5_node_setup_import':
-            command  => "cd $gcsv5::globus_conf && LC_ALL=en_US.utf8 ${gcsv5::gcs_cmd} node setup --client-id ${gcsv5::client_id} --secret ${gcsv5::client_secret} --import-node ./node_info.json --ip-address ${gcsv5::ip_addr} && cd /root && rm -rf $gcsv5::globus_conf",
+            command  => "cd $gcsv5::globus_conf && LC_ALL=en_US.utf8 ${gcsv5::gcs_cmd} node setup --import-node ./node_info.json --ip-address ${gcsv5::ip_addr} && cd /root && rm -rf $gcsv5::globus_conf",
             path     => '/bin:/usr/bin:/sbin:/usr/sbin',
             unless   => [ "if [[ `/usr/bin/ps -eaf|/usr/bin/grep gridftp|/usr/bin/grep -v grep |/usr/bin/wc -l` -gt 0 ]]; then exit 0; else exit 1;fi;", "test -s \'${gcsv5::globus_info_file}\'" ],
             provider => 'shell'
         }
     } else {
         exec {'gcsv5_node_setup':
-            command  => "cd $gcsv5::globus_conf && ${gcsv5::gcs_cmd} node setup --client-id ${gcsv5::client_id} --secret ${gcsv5::client_secret} --ip-address ${gcsv5::ip_addr} --export-node ./node_info_new.json && rm -rf ./deployment-key.json",
+            command  => "cd $gcsv5::globus_conf && ${gcsv5::gcs_cmd} node setup --ip-address ${gcsv5::ip_addr} --export-node ./node_info_new.json && rm -rf ./deployment-key.json",
             path     => '/bin:/usr/bin:/sbin:/usr/sbin',
             unless   => [ "if [[ `/usr/bin/ps -eaf|/usr/bin/grep gridftp|/usr/bin/grep -v grep |/usr/bin/wc -l` -gt 0 ]]; then exit 0; else exit 1;fi;", "test -s \'${gcsv5::globus_info_file}\'" ],
             provider => 'shell'
