@@ -7,3 +7,7 @@
     failovermethod: priority
     gpgcheck: 1
     gpgkey: 'https://downloads.globus.org/toolkit/globus-connect-server/RPM-GPG-KEY-Globus'
+
+::gcsv5::repo::disable_dnfmod: 
+  mod_auth_openidc:
+    name: "mod_auth_openidc"
